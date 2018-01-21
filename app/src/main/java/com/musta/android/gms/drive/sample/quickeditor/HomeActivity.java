@@ -14,21 +14,6 @@
 
 package com.musta.android.gms.drive.sample.quickeditor;
 
-import com.google.android.gms.drive.CreateFileActivityOptions;
-import com.google.android.gms.drive.DriveContents;
-import com.google.android.gms.drive.DriveFile;
-import com.google.android.gms.drive.DriveId;
-import com.google.android.gms.drive.Metadata;
-import com.google.android.gms.drive.MetadataChangeSet;
-import com.google.android.gms.drive.OpenFileActivityBuilder;
-import com.google.android.gms.drive.OpenFileActivityOptions;
-import com.musta.android.gms.drive.sample.quickeditor.tasks.EditDriveFileAsyncTask;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.IntentSender.SendIntentException;
@@ -43,6 +28,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.drive.CreateFileActivityOptions;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFile;
+import com.google.android.gms.drive.DriveId;
+import com.google.android.gms.drive.Metadata;
+import com.google.android.gms.drive.MetadataChangeSet;
+import com.google.android.gms.drive.OpenFileActivityOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.musta.android.gms.drive.sample.quickeditor.tasks.EditDriveFileAsyncTask;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -104,9 +103,9 @@ public class HomeActivity extends BaseDriveActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitleEditText = (EditText) findViewById(R.id.editTextTitle);
-        mContentsEditText = (EditText) findViewById(R.id.editTextContents);
-        mSaveButton = (Button) findViewById(R.id.buttonSave);
+        mTitleEditText = findViewById(R.id.editTextTitle);
+        mContentsEditText = findViewById(R.id.editTextContents);
+        mSaveButton = findViewById(R.id.buttonSave);
         mSaveButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,8 +140,8 @@ public class HomeActivity extends BaseDriveActivity {
             case REQUEST_CODE_CREATOR:
             case REQUEST_CODE_OPENER:
                 if (resultCode == RESULT_OK) {
-                    mCurrentDriveId = (DriveId) data.getParcelableExtra(
-                            OpenFileActivityBuilder.EXTRA_RESPONSE_DRIVE_ID);
+                    mCurrentDriveId = data.getParcelableExtra(
+                            OpenFileActivityOptions.EXTRA_RESPONSE_DRIVE_ID);
                     loadCurrentFile();
                 }
                 break;
